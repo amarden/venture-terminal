@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html ng-app="VentureApp">
+<head lang="en">
+    <link rel="stylesheet" href="app/style/main.css" />
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <div id="container" ng-controller="Main">
+        <div id="header">
+            <div id="header-title">
+                <h2>The Terminalator</h2>
+            </div>
+        </div>
+        <div id="terminal-container">
+            <div id="terminal">
+                <div id="history">
+                    <ul>
+                        <li ng-repeat="item in app.serverReturns track by $index">
+                            [{{item.cmd}}] <br />
+                            <span ng-show="item.success">{{item.directive_id}}: {{item.value}}</span>
+                            <span ng-show="!item.success">{{item.error}}</span>
+                        </li>
+                    </ul>
+                </div>
+                <div id="terminal-input">
+                    <input type="text" placeholder="Enter commands here" ng-model="cmdLine" ng-enter="submitLine(cmdLine)" />
+                </div>
+            </div>
+        </div>
+        <div id="model-charts">
+            <div id="model-container">
+                <div id="model">
+                    <ul>
+                        <li ng-repeat="item in app.directives">
+                            [{{item.text}}]
+                        </li>
+                    </ul>
+                </div>
+                <button ng-click="inferCont();">Continuous Infer</button>
+                <button ng-click="stopInfer();">Stop Infer</button>
+            </div>
+            <div id="charts">
+                <histo-margins xdata="xData" ydata="yData"></histo-margins>
+                <div id="chart-controls">
+                    <div id="x-choices">
+                        <h3>Choose x values</h3>
+                        <ul>
+                            <li ng-repeat="item in app.assumes">
+                                <input type="radio" ng-model="$parent.chosenX" value="{{item.type}}" ng-change="changeX()"/> {{item.type}}
+                            </li>
+                        </ul>
+                        x = {{chosenX}}
+                    </div>
+                    <div id="y-choices">
+                        <h3>Choose y values</h3>
+                        <ul>
+                            <li ng-repeat="item in app.assumes">
+                                <input type="radio" ng-model="$parent.chosenY" value="{{item.type}}" ng-change="changeY();" /> {{item.type}}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="app/vendor/underscore-min.js"></script>
+<script src="app/vendor/d3.min.js"></script>
+<script src="app/vendor/angular.min.js"></script>
+<script src="app/vendor/angular-route.min.js"></script>
+<script src="app/js/app.js"></script>
+<script src="app/js/services/helpers.js"></script>
+<script src="app/js/services/services.js"></script>
+<script src="app/js/directives/histo-marginal.js"></script>
+<script src="app/js/directives/directives.js"></script>
+<script src="app/js/controllers/main.js"></script>
+</html>
