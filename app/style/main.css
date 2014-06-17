@@ -1,0 +1,152 @@
+/************************/
+/***General Styling******/
+/************************/
+html, body, #container {
+    width: 100%;
+    height: 100%;
+    margin:0;
+    background-color:black;
+}
+
+ul {
+    list-style: none;
+    margin:0;
+    padding:0;
+}
+
+div {
+    position:relative;
+    float:left;
+}
+
+h2,h3,h6 {
+    margin:0;
+    padding: 0;
+}
+
+/************************/
+/*********Header*********/
+/************************/
+#header {
+    width:100%;
+    height:30px;
+}
+
+#header-title {
+    height:100%;
+    width:50%;
+    float:none;
+    background-color:midnightblue;
+    color: lightgray;
+    border-radius: 10px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+/*********************************/
+/*Terminal, Model, and Chart******/
+/*********************************/
+#terminal-container, #model-charts {
+    margin-top:2%;
+    width:50%;
+    height:91%;
+}
+
+#model-container {
+    width:100%;
+    height:40%;
+}
+
+#terminal {
+    width:90%;
+    height:100%;
+    margin: 0 auto;
+    float:none;
+    color:greenyellow;
+}
+
+#history {
+    width:100%;
+    height:70%;
+    overflow-y:auto;
+    background-color:darkslategray;
+    border-style: outset;
+}
+
+#terminal-input {
+    width:100%;
+    height:10%;
+    color:black;
+}
+
+#terminal-input #terminal-icons {
+    float:right;
+    color: lightgray;
+}
+
+#terminal-input #terminal-icons i {
+    margin:2px 10px 0 0;
+    font-size:16px;
+    cursor:pointer;
+}
+
+#terminal-input input {
+    width: 100%;
+}
+
+#model-container input {
+    width:90%;
+    margin: 0 auto;
+    display:block;
+}
+
+#model, #choose-metrics {
+    width:40%;
+    height: 30%;
+    overflow-y:auto;
+    background-color:lightblue;
+    border-style:outset;
+    color:black;
+    float:none;
+    margin: 0 auto;
+}
+
+#model {
+    width:90%;
+    height:70%;
+}
+
+#model-icon {
+    float:right;
+    margin-right: 50px;
+    margin-top: -15px;
+    color:lightgray;
+}
+
+#charts {
+    width:100%;
+    height:60%;
+}
+
+#charts div.marginal-chart {
+    width:60%;
+    height:100%;
+}
+
+#chart-controls {
+   margin-top:40px;
+   width:40%;
+   height:90%;
+}
+
+#chart-controls div {
+    width:40%;
+    height:100%;
+    overflow-y:auto;
+    color:lightgray;
+    font-size:10px;
+}
+
+
+
+
