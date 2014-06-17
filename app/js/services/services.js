@@ -32,6 +32,7 @@ myApp.factory("VentureService", function($http, $interval, parser) {
     // This method is dedicated to getting list directives, the method will get all directives, identify the 'assumes' so that we
     // can act on those parameters for the x and y choices in the chart. Ajax request commented out until we hook into server
     vs.getDirectives = function(that) {
+        // update the set of assumes
         var handleAssumes = function(data) {
             //if(assumes.)
             data.forEach(function(d) {
@@ -48,23 +49,28 @@ myApp.factory("VentureService", function($http, $interval, parser) {
         } else {
           debugger;
         }
-//        $http.post("list_directives")
-//            .success(function(data) {
-        // Next lines, rand1-3 adn data are just to emulate venture api response to client
-                var rand1 = Math.random();
-                var rand2 = Math.random();
-                var rand3 = Math.random();
+        
+        var success = function(data) {
+          that.directives=parser.directive(data);
+          handleAssumes(data);
+          that.storeValues(data);
+        };
+        
+        var rand1 = Math.random();
+        var rand2 = Math.random();
+        var rand3 = Math.random();
         var data = [{'symbol':'is_trick', 'instruction': 'assume', 'expression': ['bernoulli', {'type': 'number', 'value': 0.1}], 'directive_id': 1, 'value': rand1},
                     {'symbol':'weight', 'instruction': 'assume', 'expression': ['if', 'is_trick', ['uniform_continuous', {'type': 'number', 'value': 0.0}, {'type': 'number', 'value': 1.0}], {'type': 'number', 'value': 0.5}], 'directive_id': 2, 'value': rand2},
                     {'symbol':'w2', 'instruction': 'assume', 'expression': ['bernoulli', {'type': 'number', 'value': 0.1}], 'directive_id': 1, 'value': rand3}
                 ]; //temp
-                that.directives=parser.directive(data);
-                handleAssumes(data);
-                that.storeValues(data);
-//            })
-//            .error(function() {
-//                console.log("Could not grab directives");
-//            });
+        
+        //success(data);
+        
+        $http.post("http://127.0.0.1:8082/list_directives", [])
+            .success(success)
+            .error(function() {
+                console.log("Could not grab directives");
+            });
     };
 
     // This function keeps the last 100 values. Can make this dynamic if we want, for now hardcoded to 100
