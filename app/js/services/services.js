@@ -15,7 +15,7 @@ myApp.factory("VentureService", function($http, $interval, parser) {
     vs.sendCmd = function(cmd) {
         var that = this;
         that.commands.push(cmd); //done so we can implement a feature to use up arrow for previous command
-        $http.post("http://127.0.0.1:8082/assume", ['y', '(normal 0 1)'])
+        $http.post("http://127.0.0.1:8082/execute_instruction", ['[' + cmd + ']'])
             .success(function(data) {
                     var complete = parser.api(data);
                     complete = {command: cmd, id:'#', value:data.value, error:'', success:true};
@@ -45,9 +45,9 @@ myApp.factory("VentureService", function($http, $interval, parser) {
 
         // hack to change context to this object if not being called continuously
         if(this.hasOwnProperty("commands")){
-          that = this;
+            that = this;
         } else {
-          debugger;
+            debugger;
         }
         
         var success = function(data) {

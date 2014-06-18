@@ -28,13 +28,6 @@ var directiveToString = function(directive) {
 
 myApp.factory("parser", function() {
     return {
-        directive: function(data) {
-            var directives = [];
-            data.forEach(function(d){
-                directives.push({text: d.instruction.toUpperCase()+" "+ d.symbol+" "+d.value, value: d.value});
-            });
-            return directives;
-        },
         unparse: function(directive) {
             return {
               text: directiveToString(directive),
