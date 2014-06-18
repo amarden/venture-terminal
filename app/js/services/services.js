@@ -51,9 +51,9 @@ myApp.factory("VentureService", function($http, $interval, parser) {
         }
         
         var success = function(data) {
-          that.directives=parser.directive(data);
-          handleAssumes(data);
-          that.storeValues(data);
+            that.directives=data.map(parser.unparse);
+            handleAssumes(data);
+            that.storeValues(data);
         };
         
         var generateRandomData = function() {
@@ -67,7 +67,7 @@ myApp.factory("VentureService", function($http, $interval, parser) {
             return data;
         };
         
-        var useRandomData = true;
+        var useRandomData = false;
         
         if (useRandomData) {
             data = generateRandomData();
