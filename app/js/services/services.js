@@ -70,7 +70,7 @@ myApp.factory("VentureService", function($http, $interval, parser) {
             return data;
         };
         
-        var useRandomData = true;
+        var useRandomData = false;
         
         if (useRandomData) {
             data = generateRandomData();
