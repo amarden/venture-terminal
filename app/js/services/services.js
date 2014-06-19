@@ -109,17 +109,30 @@ myApp.factory("VentureService", function($http, $interval, parser) {
 
     vs.inferContinuous = function() {
         if(!this.continuous) {
-            this.continuous = true;
             var that = this;
-            var repeat = function() { vs.getDirectives(that); };
-            this.toHandler = $interval(repeat, 50);
+            $http.post("http://127.0.0.1:8082/start_continuous_inference", [])
+            .success(function() {
+                that.continuous = true;
+                var repeat = function() { vs.getDirectives(that); };
+                that.toHandler = $interval(repeat, 50);
+            })
+            .error(function() {
+                console.log("Did not reach server");
+            });
         }
     };
 
     vs.stopInferContinuous = function() {
         if(this.continuous) {
-            this.continuous = false;
-            $interval.cancel(this.toHandler);
+            var that = this;
+            $http.post("http://127.0.0.1:8082/stop_continuous_inference", [])
+            .success(function() {
+                that.continuous = false;
+                $interval.cancel(that.toHandler);
+            })
+            .error(function() {
+                console.log("Did not reach server");
+            });
         }
     };
 
