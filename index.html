@@ -50,9 +50,9 @@
                         </tr>
                     </table>
                 </div>
-                <input type="text" placeholder="Enter inference syntax" ng-model="inferLine" ng-enter="submitLine(inferLine);" /> <br />
+                <input type="text" placeholder="Enter inference syntax" ng-model="inferLine" /> <br />
                 <div id="model-icon">
-                    <i ng-click="inferCont();" class="glyphicon glyphicon-play" title="temporary to kick off a simulation of continuous inference... will be removed"></i>
+                    <i ng-click="inferCont(inferLine);" class="glyphicon glyphicon-play" title="temporary to kick off a simulation of continuous inference... will be removed"></i>
                     <i ng-click="stopInfer();" class="glyphicon glyphicon-stop" title="temporary to stop a simulation of continuous inference... will be removed"></i>
                 </div>
             </div>

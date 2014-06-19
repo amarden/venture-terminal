@@ -10,7 +10,8 @@ myApp.controller("Main", function($scope, VentureService, $modal) {
         $scope.cmdLine = "";
     };
 
-    $scope.inferCont = function() {
+    $scope.inferCont = function(line) {
+        console.log(line);
         $scope.app.inferContinuous();
     };
 
