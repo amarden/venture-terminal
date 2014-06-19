@@ -7,6 +7,10 @@ myApp.factory("parser", function() {
                 directives.push({text: d.instruction.toUpperCase()+" "+ d.symbol+" "+d.value, value: d.value, symbol: d.symbol });
             });
             return directives;
+        },
+        api: function(data) {
+            //do something with data
+            return data;
         }
     };
 });

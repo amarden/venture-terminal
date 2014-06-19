@@ -1,4 +1,4 @@
-myApp.directive("histoMargins", function() {
+myApp.directive("contDisc", function() {
     return {
         restrict: 'E',
         scope: {
@@ -8,17 +8,30 @@ myApp.directive("histoMargins", function() {
         template: '<div class="marginal-chart"></div>',
         link: function(scope, ele) {
             //D3 code to create scatter and histogram marginal chart
-            var width = 310, height = 100, barHeight = 350, scatW = 300, scatH = 300;
+            var topGraphs = {
+                w:200,
+                h:100
+            };
+            var botGraph = {
+                h:100,
+                w:100
+            }
             var svg = d3.select("div.marginal-chart")
                 .append('svg')
                 .style('width', '100%')
                 .style('height', '100%');
             svg.append("g")
-                .attr("class", "histo-x")
-                .attr("transform", "translate(20,-280)");
+                .attr("class", "histogram")
+                .attr("transform", "translate(20,-280)")
+                .attr("width", 200)
+                .attr("height",100);
             svg.append("g")
-                .attr("class", "histo-y")
+                .attr("class", "barchart")
                 .attr("transform", "translate(670,70) rotate(90)");
+            svg.append("g")
+                .attr("class", "marginals")
+                .attr("transform", "translate(0,0)");
+
             var scatter = svg.append("g")
                 .attr("width", scatW)
                 .attr("height", scatH)
@@ -46,7 +59,7 @@ myApp.directive("histoMargins", function() {
                 var convert = points.values.map(function(d) {return d.value; });
                 var data = d3.layout.histogram()
                     .bins(x.ticks(20))
-                    (convert);
+                (convert);
 
                 var histogram = svg.select("."+which);
                 var bar = histogram.selectAll(".bar")
@@ -69,7 +82,7 @@ myApp.directive("histoMargins", function() {
             var updateScatter = function(xValues, yValues) {
                 var scatData = [];
                 xValues.values.forEach(function(d) {
-                    var y = _.find(yValues.values, function(x) { return x.id === d.id; })
+                    var y = _.find(yValues.values, function(x) { return x.id === d.id; });
                     if(y) {
                         var obj = {};
                         obj.x = d.value;

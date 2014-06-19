@@ -2,28 +2,36 @@
 myApp.factory("VentureService", function($http, $interval, parser) {
     var vs = {
         continuous: false,
-        toHandler: {},
+        intervalHandler: {},
         commands: [],
+        apiReturns: [],
         directives: [],
         assumes: [],
-        valueLog:[]
+        valueLog:[],
+        serverName:"localhost"
     };
 
     //Sends commands to the server and then gets directives
     //NOTE: not hooked up yet so currently the code comments out the ajax request
     vs.sendCmd = function(cmd) {
-        this.commands.push(cmd);
+        this.commands.push(cmd); //done so we can implement a feature to use up arrow for previous command
         //$http.post("", cmd)
-          //  .success(function() {
-                if(!this.continuous) {
-                    this.getDirectives();
-                }
+          //  .success(function(data) {
+                    var data = {}; //temporary will remove
+                    var complete = parser.api(data);
+                    complete = {command: cmd, id:'#', value:'some value', error:'', success:true};
+                    this.apiReturns.push(complete);
+                    if(!this.continuous) {
+                        this.getDirectives();
+                    }
             //})
 //            .error(function() {
 //                console.log("Did not reach server");
 //            });
     };
 
+    // This method is dedicated to getting list directives, the method will get all directives, identify the 'assumes' so that we
+    // can act on those parameters for the x and y choices in the chart. Ajax request commented out until we hook into server
     vs.getDirectives = function(that) {
         var handleAssumes = function(data) {
             //if(assumes.)
@@ -35,13 +43,15 @@ myApp.factory("VentureService", function($http, $interval, parser) {
             });
         };
 
+        // hack to change context to this object if not being called continuously
         if(this.hasOwnProperty("commands")){
           that = this;
         } else {
-          debugger;
+            console.log("Warning: context is out of whack")
         }
 //        $http.post("list_directives")
 //            .success(function(data) {
+        // Next lines, rand1-3 adn data are just to emulate venture api response to client
                 var rand1 = Math.random();
                 var rand2 = Math.random();
                 var rand3 = Math.random();
@@ -86,14 +96,14 @@ myApp.factory("VentureService", function($http, $interval, parser) {
             this.continuous = true;
             var that = this;
             var repeat = function() { vs.getDirectives(that); };
-            this.toHandler = $interval(repeat, 50);
+            this.intervalHandler = $interval(repeat, 50);
         }
     };
 
     vs.stopInferContinuous = function() {
         if(this.continuous) {
             this.continuous = false;
-            $interval.cancel(this.toHandler);
+            $interval.cancel(this.intervalHandler);
         }
     };
 
