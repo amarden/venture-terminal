@@ -11,7 +11,10 @@
         <div id="header">
             <div id="header-title">
                 <h2>The Terminalator</h2>
+<<<<<<< HEAD
                 <i title="set host name" class="glyphicon glyphicon-wrench" ng-click="openModal()"></i>
+=======
+>>>>>>> c7ed54e85dacdeaf5d17c29e7674a3d13dcda5a7
             </div>
         </div>
         <div id="terminal-container">
@@ -37,6 +40,7 @@
         <div id="model-charts">
             <div id="model-container">
                 <div id="model">
+<<<<<<< HEAD
                     <table>
                         <tr ng-repeat="item in app.directives">
                             <td>{{item.instruction}}</td>
@@ -45,6 +49,13 @@
                             <td>{{item.value}}</td>
                         </tr>
                     </table>
+=======
+                    <ul>
+                        <li ng-repeat="item in app.directives">
+                            [{{item.text}}]
+                        </li>
+                    </ul>
+>>>>>>> c7ed54e85dacdeaf5d17c29e7674a3d13dcda5a7
                 </div>
                 <input type="text" placeholder="Enter inference syntax" ng-model="inferLine" ng-enter="submitLine(inferLine);" /> <br />
                 <div id="model-icon">
@@ -79,11 +90,19 @@
 <script src="app/vendor/underscore-min.js"></script>
 <script src="app/vendor/d3.min.js"></script>
 <script src="app/vendor/angular.min.js"></script>
+<<<<<<< HEAD
 <script src="app/vendor/ui-bootstrap-tpls-0.11.0.min.js"></script>
 <script src="app/js/app.js"></script>
 <script src="app/js/services/helpers.js"></script>
 <script src="app/js/services/venture.js"></script>
 <script src="app/js/directives/cont-cont.js"></script>
+=======
+<script src="app/vendor/angular-route.min.js"></script>
+<script src="app/js/app.js"></script>
+<script src="app/js/services/helpers.js"></script>
+<script src="app/js/services/services.js"></script>
+<script src="app/js/directives/histo-marginal.js"></script>
+>>>>>>> c7ed54e85dacdeaf5d17c29e7674a3d13dcda5a7
 <script src="app/js/directives/directives.js"></script>
 <script src="app/js/controllers/main.js"></script>
 </html>
