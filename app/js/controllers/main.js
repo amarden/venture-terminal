@@ -12,11 +12,11 @@ myApp.controller("Main", function($scope, VentureService, $modal) {
 
     $scope.inferCont = function(line) {
         console.log(line);
-        $scope.app.inferContinuous();
+        $scope.app.startContinuousInference(line);
     };
 
     $scope.stopInfer = function() {
-        $scope.app.stopInferContinuous();
+        $scope.app.stopContinuousInference();
     };
 
     $scope.changeX = function () {
