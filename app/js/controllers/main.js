@@ -1,7 +1,8 @@
-myApp.controller("Main", function($scope, VentureService) {
+myApp.controller("Main", function($scope, VentureService, $modal) {
     $scope.chosenX = "";
     $scope.chosenY = "";
     $scope.app = VentureService; // this object contains the methods that will be the go between for the client and venture, along with all the properties we are interested in storing.
+    $scope.graphData = {};
 
     //Event Handlers
     $scope.submitLine = function(line) {
@@ -19,12 +20,22 @@ myApp.controller("Main", function($scope, VentureService) {
 
     $scope.changeX = function () {
         var data = _.find($scope.app.valueLog, function (d) { return d.id === $scope.chosenX });
-        $scope.xData = data;
+        $scope.graphData.xData = data;
     };
 
     $scope.changeY = function() {
         var data = _.find($scope.app.valueLog, function(d) { return d.id === $scope.chosenY});
-        $scope.yData = data;
+        $scope.graphData.yData = data;
+    };
+
+    $scope.freeze = function(item) {
+        console.log(item);
+        //$scope.app.sendCmd("Freeze...")
+    };
+
+    $scope.clear = function(item) {
+        console.log(item);
+        //$scope.app.sendCmd("Clear...")
     };
 
     $scope.openModal = function () {

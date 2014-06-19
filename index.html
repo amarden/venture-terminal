@@ -38,11 +38,15 @@
             <div id="model-container">
                 <div id="model">
                     <table>
-                        <tr ng-repeat="item in app.directives">
-                            <td>{{item.instruction}}</td>
-                            <td>{{item.symbol}}</td>
-                            <td>{{item.expression}}</td>
-                            <td>{{item.value}}</td>
+                        <tr ng-repeat="item in app.directives track by item.symbol">
+                            <td class="instruction">{{item.instruction}}</td>
+                            <td class="symbol">{{item.symbol}}</td>
+                            <td class="expression"><div>{{item.expression}}</div></td>
+                            <td class="value">{{item.value}}</td>
+                            <td><i class="glyphicon glyphicon-pause" ng-click="freeze(item)"></i></td>
+                            <td><i class="glyphicon glyphicon-minus" ng-click="clear(item)"></i></td>
+                            <td><input type="radio" ng-model="$parent.chosenX" value="{{item.symbol}}" ng-change="changeX()"/></td>
+                            <td><input type="radio" ng-model="$parent.chosenY" value="{{item.symbol}}" ng-change="changeY();" /></td>
                         </tr>
                     </table>
                 </div>
@@ -53,25 +57,8 @@
                 </div>
             </div>
             <div id="charts">
-                <histo-margins xdata="xData" ydata="yData"></histo-margins>
-                <div id="chart-controls">
-                    <div id="x-choices">
-                        <h3 ng-show="app.assumes.length>0">Choose X</h3>
-                        <ul>
-                            <li ng-repeat="item in app.assumes">
-                                <input type="radio" ng-model="$parent.chosenX" value="{{item.type}}" ng-change="changeX()"/> {{item.type}}
-                            </li>
-                        </ul>
-                    </div>
-                    <div id="y-choices">
-                        <h3 ng-show="app.assumes.length>0">Choose Y</h3>
-                        <ul>
-                            <li ng-repeat="item in app.assumes">
-                                <input type="radio" ng-model="$parent.chosenY" value="{{item.type}}" ng-change="changeY();" /> {{item.type}}
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+                <cont-cont chart-data="graphData"></cont-cont>
+                <!--<cont-disc chart-data="graphData"></cont-disc>-->
             </div>
         </div>
     </div>
@@ -82,12 +69,11 @@
 <script src="app/vendor/ui-bootstrap-tpls-0.11.0.min.js"></script>
 <script src="app/js/app.js"></script>
 <script src="app/js/services/helpers.js"></script>
-<script src="app/vendor/angular-route.min.js"></script>
 <script src="app/js/app.js"></script>
 <script src="app/js/services/helpers.js"></script>
 <script src="app/js/services/services.js"></script>
 <script src="app/js/directives/cont-cont.js"></script>=
-<script src="app/js/directives/histo-marginal.js"></script>
+<script src="app/js/directives/cont-disc.js"></script>
 <script src="app/js/directives/directives.js"></script>
 <script src="app/js/controllers/main.js"></script>
 </html>

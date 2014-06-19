@@ -61,14 +61,16 @@ myApp.factory("VentureService", function($http, $interval, parser) {
             var rand1 = Math.random();
             var rand2 = Math.random();
             var rand3 = Math.random();
+            var rand4 = Math.floor(Math.random()*6)+1;
             var data = [{'symbol':'is_trick', 'instruction': 'assume', 'expression': ['bernoulli', {'type': 'number', 'value': 0.1}], 'directive_id': 1, 'value': rand1},
                         {'symbol':'weight', 'instruction': 'assume', 'expression': ['if', 'is_trick', ['uniform_continuous', {'type': 'number', 'value': 0.0}, {'type': 'number', 'value': 1.0}], {'type': 'number', 'value': 0.5}], 'directive_id': 2, 'value': rand2},
-                        {'symbol':'w2', 'instruction': 'assume', 'expression': ['bernoulli', {'type': 'number', 'value': 0.1}], 'directive_id': 1, 'value': rand3}
+                        {'symbol':'w2', 'instruction': 'assume', 'expression': ['bernoulli', {'type': 'number', 'value': 0.1}], 'directive_id': 1, 'value': rand3},
+                        {'symbol':'w3', 'instruction': 'assume', 'expression': ['bernoulli', {'type': 'number', 'value': 0.1}], 'directive_id': 1, 'value': rand4}
                     ]; //temp
             return data;
         };
         
-        var useRandomData = false;
+        var useRandomData = true;
         
         if (useRandomData) {
             data = generateRandomData();

@@ -76,7 +76,7 @@ h2,h3,h6 {
 #model-container {
     float:left;
     width:100%;
-    height:40%;
+    height:50%;
 }
 
 #terminal {
@@ -120,24 +120,62 @@ h2,h3,h6 {
 
 #model-container input {
     width:90%;
-    margin: 0 auto;
+    margin:0 auto;
     display:block;
-}
-
-#model, #choose-metrics {
-    width:40%;
-    height: 30%;
-    overflow-y:auto;
-    background-color:lightblue;
-    border-style:outset;
-    color:black;
-    float:none;
-    margin: 0 auto;
 }
 
 #model {
     width:90%;
-    height:70%;
+    height: 80%;
+    overflow-y:auto;
+    background-color:lightblue;
+    border-style:outset;
+    color:black;
+    margin: 0 auto;
+}
+
+#choose-metrics {
+    width: 40%;
+    height: 30%;
+    overflow-y: auto;
+    background-color: lightblue;
+    border-style: outset;
+    color: black;
+}
+
+#model table {
+    table-layout: fixed;
+    width:100%;
+}
+
+#model table td {
+    width:3%;
+}
+
+#model table td.instruction {
+    width:10%;
+}
+
+#model table td.expression {
+    width:30%;
+}
+
+#model table td.expression div {
+    text-overflow:ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    display:block;
+    position:relative;
+    float:left;
+    width:100%;
+}
+
+#model table td.symbol {
+    width:10%;
+}
+
+#model table td.value {
+    width:20%;
 }
 
 #model-icon {
@@ -150,30 +188,15 @@ h2,h3,h6 {
 #charts {
     float:left;
     width:100%;
-    height:60%;
+    height:50%;
 }
 
-#charts div.marginal-chart {
+#charts div {
     float:left;
-    width:60%;
+    width:100%;
     height:100%;
 }
 
-#chart-controls {
-   float:left;
-   margin-top:40px;
-   width:40%;
-   height:90%;
-}
-
-#chart-controls div {
-    float:left;
-    width:40%;
-    height:100%;
-    overflow-y:auto;
-    color:lightgray;
-    font-size:10px;
-}
 
 
 

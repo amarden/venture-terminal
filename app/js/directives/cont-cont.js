@@ -2,14 +2,13 @@ myApp.directive("contCont", function() {
     return {
         restrict: 'E',
         scope: {
-            xdata: '=',
-            ydata: '='
+            chartData: '='
         },
-        template: '<div class="marginal-chart"></div>',
+        template: '<div class="cont-cont-chart"></div>',
         link: function(scope, ele) {
             //D3 code to create scatter and histogram marginal chart
             var width = 310, height = 100, barHeight = 350, scatW = 300, scatH = 300;
-            var svg = d3.select("div.marginal-chart")
+            var svg = d3.select("div.cont-cont-chart")
                 .append('svg')
                 .style('width', '100%')
                 .style('height', '100%');
@@ -96,11 +95,11 @@ myApp.directive("contCont", function() {
 
             //this watches for changes in the data adn updates the chart.
             //This may need to be changed as currently it only looks at one set of points
-            scope.$watch("xdata", function() {
-                if(scope.xdata && scope.ydata) {
-                    updateHisto('histo-x', scope.xdata);
-                    updateHisto('histo-y', scope.ydata);
-                    updateScatter(scope.xdata, scope.ydata);
+            scope.$watch("chartData", function() {
+                if(scope.chartData.xData && scope.chartData.yData) {
+                    updateHisto('histo-x', scope.chartData.xData);
+                    updateHisto('histo-y', scope.chartData.yData);
+                    updateScatter(scope.chartData.xData, scope.chartData.yData);
                 }
             }, true);
         }

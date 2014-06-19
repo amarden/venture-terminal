@@ -1,10 +1,10 @@
 var directiveToString = function(directive) {
     var directive_str = "[" + directive.instruction + " ";
-    
+
     if (directive.instruction === "assume") {
         directive_str += directive.symbol + " ";
     }
-    
+
     function exprToString(expr) {
         //console.log(typeof expr);
         if (expr instanceof Array) {
@@ -15,13 +15,13 @@ var directiveToString = function(directive) {
             return expr.value.toString();
         }
     }
-    
+
     directive_str += exprToString(directive.expression);
-    
+
     if (directive.instruction === "observe") {
         directive_str += " " + directive.value;
     }
-    
+
     directive_str += "]";
     return directive_str;
 };
@@ -30,6 +30,9 @@ myApp.factory("parser", function() {
     return {
         unparse: function(directive) {
             return {
+              symbol: directive.symbol,
+              instruction: directive.instruction,
+              expression: directive.expression,
               text: directiveToString(directive),
               value: directive.value
             };
