@@ -27,7 +27,7 @@ myApp.controller("Main", function($scope, VentureService, $modal) {
         var data = _.find($scope.app.valueLog, function(d) { return d.id === $scope.chosenY});
         $scope.graphData.yData = data;
     };
-
+//test
     $scope.freeze = function(item) {
         console.log(item);
         //$scope.app.sendCmd("Freeze...")
