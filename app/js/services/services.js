@@ -8,7 +8,7 @@ myApp.factory("VentureService", function($http, $interval, parser) {
         directives: [],
         assumes: [],
         valueLog:[],
-        serverName:[]
+        serverName:'localhost'
     };
 
     //Sends commands to the server and then gets directives
