@@ -1,8 +1,9 @@
-myApp.directive("contCont", function() {
+myApp.directive("contCont", function(values) {
     return {
         restrict: 'E',
         scope: {
-            chartData: '='
+            chartData: '=',
+            chartType: '='
         },
         template: '<div class="cont-cont-chart"></div>',
         link: function(scope, ele) {
@@ -14,14 +15,14 @@ myApp.directive("contCont", function() {
                 .style('height', '100%');
             svg.append("g")
                 .attr("class", "histo-x")
-                .attr("transform", "translate(20,-280)");
+                .attr("transform", "translate(20,-320)");
             svg.append("g")
                 .attr("class", "histo-y")
-                .attr("transform", "translate(670,70) rotate(90)");
+                .attr("transform", "translate(670,30) rotate(90)");
             var scatter = svg.append("g")
                 .attr("width", scatW)
                 .attr("height", scatH)
-                .attr("transform", "translate(20,70)");
+                .attr("transform", "translate(20,30)");
 
             var scatScale = d3.scale.linear()
                 .domain([0,1])
@@ -66,27 +67,18 @@ myApp.directive("contCont", function() {
             };
 
             var updateScatter = function(xValues, yValues) {
-                var scatData = [];
-                xValues.values.forEach(function(d) {
-                    var y = _.find(yValues.values, function(x) { return x.id === d.id; });
-                    if(y) {
-                        var obj = {};
-                        obj.x = d.value;
-                        obj.y = y.value;
-                        scatData.push(obj);
-                    }
-                });
+                var scatData = values.match(xValues, yValues);
 
                 var circles = scatter.selectAll("circle")
                     .data(scatData);
 
                 circles.enter().append("circle")
                     .attr("r", 4)
-                    .attr("cx", function(d) { return scatScale(d.x)})
+                    .attr("cx", function(d) { return scatScale(d.value)})
                     .attr("cy", function(d) { return scatScale(d.y)});
 
                 circles
-                    .attr("cx", function(d) { return scatScale(d.x)})
+                    .attr("cx", function(d) { return scatScale(d.value)})
                     .attr("cy", function(d) { return scatScale(d.y)})
                     .attr("fill" , function(d, i) { return colorScale(i);});
 
@@ -96,7 +88,7 @@ myApp.directive("contCont", function() {
             //this watches for changes in the data adn updates the chart.
             //This may need to be changed as currently it only looks at one set of points
             scope.$watch("chartData", function() {
-                if(scope.chartData.xData && scope.chartData.yData) {
+                if(scope.chartData.xData && scope.chartData.yData && scope.chartType==='cont-cont') {
                     updateHisto('histo-x', scope.chartData.xData);
                     updateHisto('histo-y', scope.chartData.yData);
                     updateScatter(scope.chartData.xData, scope.chartData.yData);

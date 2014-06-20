@@ -51,11 +51,30 @@ myApp.controller("Main", function($scope, VentureService, $modal) {
         });
 
         modalInstance.result.then(function (serverName) {
-            console.log(serverName);
             $scope.app.serverName = serverName;
-            console.log($scope);
         });
     };
+
+    $scope.customShow = "";
+    $scope.chartType="";
+    $scope.chooseCustom = function(which) {
+        $scope.customShow = which;
+        console.log($scope.customShow);
+    };
+
+    $scope.$watch("graphData", function() {
+        if($scope.graphData && $scope.graphData.xData && $scope.graphData.yData) {
+            var distinctX = _.uniq($scope.graphData.xData.values.map(function(d) {return d.value; }));
+            var distinctY = _.uniq($scope.graphData.yData.values.map(function(d) {return d.value; }));
+            if((distinctY.length<10 || distinctX.length<10) && $scope.chartType!=='cont-disc') {
+                $scope.chartType = "cont-disc";
+                console.log($scope.chartType);
+            } else if((distinctY.length>10 && distinctX.length>10) && $scope.chartType!=='cont-cont') {
+                $scope.chartType = "cont-cont";
+                console.log($scope.chartType);
+            }
+        }
+    }, true);
 });
 
 myApp.controller("Mod", function($scope, $modalInstance, name) {

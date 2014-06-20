@@ -1,0 +1,41 @@
+myApp.directive("<entername>", function() {
+    //DO NOT CHANGE FROM HERE - except for where it says <entername>
+    return {
+        restrict: 'E',
+        scope: {
+            chartData: '='
+        },
+        template: '<div class="<entername>"></div>',
+        link: function(scope, ele) {
+            //Create svg to put shapes on.
+            var svg = d3.select("div.cont-cont-chart")
+                .append('svg')
+                .style('width', '100%')
+                .style('height', '100%');
+            var container = svg.append("g");
+
+            //TO HERE
+
+            //PATTERN of code should be:
+                //State height and width parameters
+                //create scales that have output ranges from 0 to height (usually y scale) and 0 to width(usually x scale)
+                // if you know the main of values is static you can also declare the input domain for the scales, otherwise put input
+                // ranges in the update function
+                //Make one function to update viz,
+
+
+
+
+
+            //DO NOT CHANGE FROM HERE - except for where says <name_of_update_function>
+            scope.$watch("chartData", function() {
+                if(chartData) { //make sure the data you want to use exists
+                  <name_of_update_function>(scope.chartData);
+                                //NOTE: currently charData has two properties, xData and yData which represents the parameters you
+                                //choose from
+                }
+            }, true);
+            //TO HERE
+        }
+    }
+});

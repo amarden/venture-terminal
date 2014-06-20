@@ -79,18 +79,34 @@ h2,h3,h6 {
     height:50%;
 }
 
+#terminal-custom {
+    float:left;
+    width:100%;
+    height:100%;
+}
+
 #terminal {
     width:90%;
-    height:100%;
+    height:50%;
     margin: 0 auto;
     float:none;
     color:greenyellow;
 }
 
+#custom {
+    width:100%;
+    height:50%;
+}
+
+#custom div {
+    width:100%;
+    height:100%;
+}
+
 #history {
     float:left;
     width:100%;
-    height:70%;
+    height:80%;
     overflow-y:auto;
     background-color:darkslategray;
     border-style: outset;
