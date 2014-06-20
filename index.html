@@ -15,22 +15,32 @@
             </div>
         </div>
         <div id="terminal-container">
-            <div id="terminal">
-                <div id="history">
-                    <ul>
-                        <li ng-repeat="item in app.apiReturns track by $index">
-                            [{{item.command}}] <br />
-                            <span ng-show="item.success">{{item.id}}: {{item.value}}</span>
-                            <span ng-show="!item.success">{{item.error}}</span>
-                        </li>
-                    </ul>
-                </div>
-                <div id="terminal-input">
-                    <input type="text" placeholder="Enter commands here" ng-model="cmdLine" ng-enter="submitLine(cmdLine);" /> <br />
-                    <div id="terminal-icons">
-                        <i title="placeholder for batch mode import" class="glyphicon glyphicon-open"></i>
-                        <i title="placeholder for exporting command history to text" class="glyphicon glyphicon-save"></i>
+            <div id="terminal-custom">
+                <div id="terminal">
+                    <div id="history">
+                        <ul>
+                            <li ng-repeat="item in app.apiReturns track by $index">
+                                [{{item.command}}] <br />
+                                <span ng-show="item.success">{{item.id}}: {{item.value}}</span>
+                                <span ng-show="!item.success">{{item.error}}</span>
+                            </li>
+                        </ul>
                     </div>
+                    <div id="terminal-input">
+                        <input type="text" placeholder="Enter commands here" ng-model="cmdLine" ng-enter="submitLine(cmdLine);" /> <br />
+                        <div id="terminal-icons">
+                            <i title="placeholder for batch mode import" class="glyphicon glyphicon-open"></i>
+                            <i title="placeholder for exporting command history to text" class="glyphicon glyphicon-save"></i>
+                        </div>
+                    </div>
+                </div>
+                <div id="custom">
+                    <label>Choose Custom Graph: </label>
+                        <input type="text" ng-model="show" ng-enter="chooseCustom(show)" />
+                    <!--ENTER CUSTOM DIRECTIVES HERE --> <!-- <yourdirectivename ng-show="chustomShow=='yourcall' chart-data="graphData></yourdirectivename> -->
+                    <make-histogram ng-show="customShow=='makeHistogram'" chart-data="graphData"></make-histogram>
+                    <make-barchart ng-show="customShow=='makeBarChart'" chart-data="graphData"></make-barchart>
+                    <!--END ENTERING CUSTOM DIRECTIVES -->
                 </div>
             </div>
         </div>
@@ -57,8 +67,8 @@
                 </div>
             </div>
             <div id="charts">
-                <cont-cont chart-data="graphData"></cont-cont>
-                <!--<cont-disc chart-data="graphData"></cont-disc>-->
+                <cont-cont ng-show="chartType=='cont-cont'" chart-type="chartType" chart-data="graphData"></cont-cont>
+                <cont-disc ng-show="chartType=='cont-disc'" chart-type="chartType" chart-data="graphData"></cont-disc>
             </div>
         </div>
     </div>
@@ -68,12 +78,15 @@
 <script src="app/vendor/angular.min.js"></script>
 <script src="app/vendor/ui-bootstrap-tpls-0.11.0.min.js"></script>
 <script src="app/js/app.js"></script>
-<script src="app/js/services/helpers.js"></script>
 <script src="app/js/app.js"></script>
 <script src="app/js/services/helpers.js"></script>
 <script src="app/js/services/services.js"></script>
-<script src="app/js/directives/cont-cont.js"></script>=
+<script src="app/js/services/values.js"></script>
+<script src="app/js/directives/cont-cont.js"></script>
 <script src="app/js/directives/cont-disc.js"></script>
 <script src="app/js/directives/directives.js"></script>
 <script src="app/js/controllers/main.js"></script>
+<!--ENTER CUSTOM VIZ FILES HERE --> <!--script src="custom/yourfilename></script>-->
+<script src="custom/custom-example1.js"></script>
+<script src="custom/custom-example2.js"></script>
 </html>
