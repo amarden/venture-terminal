@@ -34,9 +34,9 @@ myApp.controller("Main", function($scope, VentureService, $modal) {
         //$scope.app.sendCmd("Freeze...")
     };
 
-    $scope.clear = function(item) {
-        console.log(item);
-        //$scope.app.sendCmd("Clear...")
+    $scope.clear = function(directive) {
+        console.log(directive);
+        $scope.app.forget(parseInt(directive.directive_id));
     };
 
     $scope.openModal = function () {

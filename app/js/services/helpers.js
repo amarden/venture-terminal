@@ -29,13 +29,8 @@ var directiveToString = function(directive) {
 myApp.factory("parser", function() {
     return {
         unparse: function(directive) {
-            return {
-              symbol: directive.symbol,
-              instruction: directive.instruction,
-              expression: exprToString(directive.expression),
-              text: directiveToString(directive),
-              value: directive.value
-            };
+            directive.expression = exprToString(directive.expression);
+            return directive;
         },
         api: function(data) {
             //do something with data

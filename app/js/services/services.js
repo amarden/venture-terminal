@@ -10,7 +10,17 @@ myApp.factory("VentureService", function($http, $interval, parser) {
         valueLog:[],
         serverName:'localhost'
     };
-
+    
+    var ripl_functions = ['set_mode', 'execute_instruction', 'execute_program', 'substitute_params', 'split_program', 'character_index_to_expression_index', 'expression_index_to_text_index', 'configure', 'infer', 'clear', 'rollback', 'assume', 'predict', 'observe', 'forget', 'force', 'sample', 'start_continuous_inference', 'stop_continuous_inference', 'continuous_inference_status'];
+    
+    ripl_functions.map(function(instruction) {
+        var do_instruction = function() {
+            console.log(arguments);
+            $http.post("http://127.0.0.1:8082/" + instruction, Array.prototype.slice.call(arguments, 0));
+        };
+        vs[instruction] = do_instruction;
+    });
+    
     //Sends commands to the server and then gets directives
     //NOTE: not hooked up yet so currently the code comments out the ajax request
     vs.sendCmd = function(cmd) {
