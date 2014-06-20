@@ -51,12 +51,6 @@ myApp.factory("VentureService", function($http, $interval, parser) {
             debugger;
         }
         
-        var success = function(data) {
-            that.directives=data.map(parser.unparse);
-            handleAssumes(data);
-            that.storeValues(data);
-        };
-        
         var generateRandomData = function() {
             var rand1 = Math.random();
             var rand2 = Math.random();
@@ -71,6 +65,12 @@ myApp.factory("VentureService", function($http, $interval, parser) {
         };
         
         var useRandomData = false;
+        
+        var success = function(data) {
+            that.directives=data.map(parser.unparse);
+            handleAssumes(data);
+            that.storeValues(data);
+        };
         
         if (useRandomData) {
             data = generateRandomData();
@@ -109,7 +109,7 @@ myApp.factory("VentureService", function($http, $interval, parser) {
 
     vs.startContinuousInference = function(expr) {
         var that = this;
-        $http.post("http://127.0.0.1:8082/start_continuous_inference", [expr])
+        $http.post("http://127.0.0.1:8082/start_continuous_inference", expr ? [expr] : [])
         .success(function() {
             if (!that.continuous) {
                 that.continuous = true;
