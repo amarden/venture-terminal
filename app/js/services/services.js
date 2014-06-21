@@ -29,13 +29,14 @@ myApp.factory("VentureService", function($http, $interval, parser) {
         $http.post("http://127.0.0.1:8082/execute_instruction", ['[' + cmd + ']'])
             .success(function(data) {
                     var complete = parser.api(data);
-                    complete = {command: cmd, id:'#', value:data.value, error:'', success:true};
+                    complete = {command: cmd, id:data.directive_id, value:data.value.value, error:'', success:true};
                     that.apiReturns.push(complete);
                     if(!that.continuous) {
                         that.getDirectives();
                     }
             })
             .error(function() {
+                that.apiReturns.push({command:cmd, value:"", error:"There was an error with the above command", success:false});
                 console.log("Did not reach server");
             });
     };

@@ -45,7 +45,7 @@ myApp.directive("contDisc", ['values', function(values) {
                 .domain([0,50]);
             var yBot = d3.scale.linear()
                 .range([botDimensions.h,0])
-                .domain([0,25]);
+                .domain([0,50]);
             var xHistBot =  d3.scale.linear()
                 .range([0, botDimensions.w]);
             var count=0;
@@ -54,7 +54,7 @@ myApp.directive("contDisc", ['values', function(values) {
                 var color = 'rgb(255, 127, 0)';
                 var convert = points.map(function(d) {return d.value; });
                 var data = d3.layout.histogram()
-                    .bins(xScale.ticks(20))
+                    .bins(20)
                 (convert);
 
                 var s = dimension.w/20;
