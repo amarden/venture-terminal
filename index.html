@@ -48,15 +48,15 @@
             <div id="model-container">
                 <div id="model">
                     <table>
-                        <tr ng-repeat="item in app.directives track by item.symbol">
+                        <tr ng-repeat="item in app.directives track by item.directive_id">
                             <td class="instruction">{{item.instruction}}</td>
                             <td class="symbol">{{item.symbol}}</td>
                             <td class="expression"><div>{{item.expression}}</div></td>
                             <td class="value">{{item.value}}</td>
                             <td><i class="glyphicon glyphicon-pause" ng-click="freeze(item)"></i></td>
                             <td><i class="glyphicon glyphicon-minus" ng-click="clear(item)"></i></td>
-                            <td><input type="radio" ng-model="$parent.chosenX" value="{{item.symbol}}" ng-change="changeX()"/></td>
-                            <td><input type="radio" ng-model="$parent.chosenY" value="{{item.symbol}}" ng-change="changeY();" /></td>
+                            <td><input ng-show="item.instruction!='observe'" type="radio" ng-model="$parent.chosenX" value="{{item.symbol}}" ng-change="changeX()"/></td>
+                            <td><input ng-show="item.instruction!='observe'" type="radio" ng-model="$parent.chosenY" value="{{item.symbol}}" ng-change="changeY();" /></td>
                         </tr>
                     </table>
                 </div>
