@@ -16,13 +16,12 @@ myApp.factory("VentureService", function($http, $interval, parser) {
     ripl_functions.map(function(instruction) {
         var do_instruction = function() {
             console.log(arguments);
-            $http.post("http://127.0.0.1:8082/" + instruction, Array.prototype.slice.call(arguments, 0));
+            $http.post("http://127.0.0.1:8082/" + instruction, Array.prototype.slice.call(arguments));
         };
         vs[instruction] = do_instruction;
     });
     
     //Sends commands to the server and then gets directives
-    //NOTE: not hooked up yet so currently the code comments out the ajax request
     vs.sendCmd = function(cmd) {
         var that = this;
         that.commands.push(cmd); //done so we can implement a feature to use up arrow for previous command
