@@ -35,8 +35,8 @@ myApp.controller("Main", function($scope, VentureService, $modal) {
     };
 
     $scope.clear = function(directive) {
-        console.log(directive);
-        $scope.app.forget(parseInt(directive.directive_id));
+        //console.log(directive);
+        $scope.app.forget(directive.directive_id);
     };
 
     $scope.openModal = function () {
