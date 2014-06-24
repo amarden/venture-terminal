@@ -16,7 +16,7 @@ myApp.factory("VentureService", function($http, $interval, parser) {
     ripl_functions.map(function(instruction) {
         var do_instruction = function() {
             console.log(arguments);
-            $http.post("http://localhost/:8082/" + instruction, Array.prototype.slice.call(arguments));
+            $http.post("http://localhost:8082/" + instruction, Array.prototype.slice.call(arguments));
         };
         vs[instruction] = do_instruction;
     });
