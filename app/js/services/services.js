@@ -8,15 +8,21 @@ myApp.factory("VentureService", function($http, $interval, parser) {
         directives: [],
         assumes: [],
         valueLog:[],
-        serverName:'localhost'
+        serverName:'localhost',
+        serverPort:8082,
+    };
+    
+    var server = function() {
+      return "http://" + vs.serverName + ":" + vs.serverPort + "/";
     };
     
     var ripl_functions = ['set_mode', 'execute_instruction', 'execute_program', 'substitute_params', 'split_program', 'character_index_to_expression_index', 'expression_index_to_text_index', 'configure', 'infer', 'clear', 'rollback', 'assume', 'predict', 'observe', 'forget', 'force', 'sample', 'start_continuous_inference', 'stop_continuous_inference', 'continuous_inference_status'];
     
+    
     ripl_functions.map(function(instruction) {
         var do_instruction = function() {
             console.log(arguments);
-            $http.post("http://localhost:8082/" + instruction, Array.prototype.slice.call(arguments));
+            $http.post(server() + instruction, Array.prototype.slice.call(arguments));
         };
         vs[instruction] = do_instruction;
     });
@@ -25,7 +31,7 @@ myApp.factory("VentureService", function($http, $interval, parser) {
     vs.sendCmd = function(cmd) {
         var that = this;
         that.commands.push(cmd); //done so we can implement a feature to use up arrow for previous command
-        $http.post("http://localhost:8082/execute_instruction", ['[' + cmd + ']'])
+        $http.post(server() + "execute_instruction", ['[' + cmd + ']'])
             .success(function(data) {
                     var complete = parser.api(data);
                     complete.command = cmd;
@@ -91,7 +97,7 @@ myApp.factory("VentureService", function($http, $interval, parser) {
             data = generateRandomData();
             success(data);
         } else {
-            $http.post("http://localhost:8082/list_directives", [])
+            $http.post(server() + "list_directives", [])
                 .success(success)
                 .error(function() {
                     console.log("Could not grab directives");
@@ -124,7 +130,7 @@ myApp.factory("VentureService", function($http, $interval, parser) {
 
     vs.startContinuousInference = function(expr) {
         var that = this;
-        $http.post("http://localhost:8082/start_continuous_inference", expr ? [expr] : [])
+        $http.post(server() + "start_continuous_inference", expr ? [expr] : [])
         .success(function() {
             if (!that.continuous) {
                 that.continuous = true;
@@ -139,7 +145,7 @@ myApp.factory("VentureService", function($http, $interval, parser) {
 
     vs.stopContinuousInference = function() {
         var that = this;
-        $http.post("http://localhost:8082/stop_continuous_inference", [])
+        $http.post(server() + "stop_continuous_inference", [])
         .success(function() {
             if (that.continuous) {
                 that.continuous = false;
