@@ -35,7 +35,6 @@ myApp.controller("Main", function($scope, VentureService, $modal) {
     };
 
     $scope.clear = function(directive) {
-        //console.log(directive);
         $scope.app.forget(directive.directive_id);
     };
 
@@ -44,14 +43,15 @@ myApp.controller("Main", function($scope, VentureService, $modal) {
             templateUrl: 'app/views/modal.html',
             controller: 'Mod',
             resolve: {
-                name: function () {
-                    return $scope.app.serverName;
+                s: function () {
+                    return $scope.app;
                 }
             }
         });
 
-        modalInstance.result.then(function (serverName) {
-            $scope.app.serverName = serverName;
+        modalInstance.result.then(function (serverInfo) {
+            $scope.app.serverName = serverInfo.server;
+            $scope.app.serverPort = serverInfo.port;
         });
     };
 
@@ -68,21 +68,23 @@ myApp.controller("Main", function($scope, VentureService, $modal) {
             var distinctY = _.uniq($scope.graphData.yData.values.map(function(d) {return d.value; }));
             if((distinctY.length<10 || distinctX.length<10) && $scope.chartType!=='cont-disc') {
                 $scope.chartType = "cont-disc";
-                console.log($scope.chartType);
             } else if((distinctY.length>10 && distinctX.length>10) && $scope.chartType!=='cont-cont') {
                 $scope.chartType = "cont-cont";
-                console.log($scope.chartType);
             }
         }
     }, true);
 });
 
-myApp.controller("Mod", function($scope, $modalInstance, name) {
+myApp.controller("Mod", function($scope, $modalInstance, s) {
     $scope.thisMod = {};
-    $scope.thisMod.server = name;
+    $scope.thisMod.server = s.serverName;
+    $scope.thisMod.port = s.serverPort;
 
     $scope.ok = function () {
-        $modalInstance.close($scope.thisMod.server);
+        var serverInfo = {};
+        serverInfo.server = $scope.thisMod.server;
+        serverInfo.port = $scope.thisMod.port;
+        $modalInstance.close(serverInfo);
     };
 
     $scope.cancel = function () {

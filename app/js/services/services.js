@@ -9,7 +9,7 @@ myApp.factory("VentureService", function($http, $interval, parser) {
         assumes: [],
         valueLog:[],
         serverName:'localhost',
-        serverPort:8082,
+        serverPort:8082
     };
     
     var server = function() {
